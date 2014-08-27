@@ -1,0 +1,7 @@
+*.pyc
+*.project
+*.pydevproject
+*.pid
+*.sqlite3
+
+functional_tests/screendumps
