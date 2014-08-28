@@ -3,6 +3,7 @@ import sys
 from django.test import LiveServerTestCase
 from selenium import webdriver
 
+from store.models import Product
 DEFAULT_WAIT = 5
 
 
@@ -23,6 +24,9 @@ class FunctionalTest(LiveServerTestCase):
             super(FunctionalTest,cls).tearDownClass() 
 
     def setUp(self):  
+        Product.objects.create(name="Milk", price=2)
+        Product.objects.create(name="Sugar", price=2)
+        Product.objects.create(name="Salt", price=2)
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(DEFAULT_WAIT)
 

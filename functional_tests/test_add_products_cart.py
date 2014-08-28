@@ -17,16 +17,17 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn('Store', header_text)
 
         # She notices on the homepage a list of products
-        products = self.browser.find_element_by_css_selector(
+        list_products = self.browser.find_element_by_css_selector(
             '.list_products'
         )
-        self.assertContains(
-                products.text,
-                'List of products'
+        self.assertIn(
+                'List of products',
+                list_products.text
+                
         )
 
-        # She notices that each products has an input box under it
-        products = self.browser.find_elements_by_css_selector(
+        # She notices that each product has an input box under it
+        products = list_products.find_elements_by_css_selector(
             '.product'
         )
         inputs = self.browser.find_elements_by_tag_name('input')
@@ -34,9 +35,9 @@ class NewVisitorTest(FunctionalTest):
 
         # On the list of products she saw the product milk. So she decided
         # to buy 5 bottles
-        milk = self.test.browser.find_element_by_link_text('Milk')
+        milk = list_products.find_element_by_css_selector(".product[data-name='Milk']")
         input_ = milk.find_element_by_tag_name('input')
-        input_.send_keys(3)
+        input_.send_keys(5)
         input_.send_keys(Keys.ENTER)
         
         # She can see on the sidebar that her cart was updated with the 
@@ -44,7 +45,7 @@ class NewVisitorTest(FunctionalTest):
         cart = self.browser.find_elements_by_css_selector(
             '.cart'
         )
-        cartprod = cart.ind_elements_by_css_selector(
+        cartprod = cart.find_elements_by_css_selector(
             '.cartprod'
         )
         self.assertIn("Milk 2", [prod.text for prod in cartprod])

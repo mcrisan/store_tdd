@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome to the Store</h1>
+<div class="row list_products">
+	<h2>List of products</h2>
+	{% for product in products %}
+		<div class="product" data-name={{product.name}}>
+			<div class="col-md-3"><a href="">{{product.name}}</a></div>
+			<div class="col-md-3">{{product.price}}</div>
+			<form method="POST" action="{% url 'home' %}">
+			    {% csrf_token %}
+				<input name="quantity" placeholder="Enter quantity">
+				<input type="hidden" name="prod_id"  value={{product.id}}>
+			</form>	
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}
